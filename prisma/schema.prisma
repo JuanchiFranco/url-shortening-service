@@ -15,7 +15,7 @@ datasource db {
 
 //model urls
 model Url {
-  id        String   @id @default(cuid())
+  id        Int   @id @default(autoincrement())
   url       String
   shortCode String   @unique
   accessCount Int     @default(0)

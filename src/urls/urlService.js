@@ -76,3 +76,18 @@ export const deleteUrl = async (shortCode) => {
 
   return { success: true, message: "URL deleted" };
 };
+
+export const getStats = async (shortCode) => {
+  const url = await prisma.url.findUnique({
+    where: { shortCode }
+  });
+
+  if (!url) {
+    return {
+      success: false,
+      message: "URL not found",
+    };
+  }
+
+  return { success: true, message: "Stats retrieved", stats: url };
+}

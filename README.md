@@ -92,7 +92,7 @@ GET /api/urls/shorten/:shortCode
 
 ### Actualizar una URL Corta
 ```http
-PATCH /api/urls/shorten/:shortCode
+PUT /api/urls/shorten/:shortCode
 Content-Type: application/json
 
 {

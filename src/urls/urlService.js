@@ -40,3 +40,19 @@ export const getUrlByShortCode = async (shortCode) => {
 
   return { success: true, message: "URL found", url };
 };
+
+export const update = async (shortCode, newUrl) => {
+  const updatedUrl = await prisma.url.update({
+    where: { shortCode },
+    data: { url: newUrl },
+  });
+
+  if (!updatedUrl) {
+    return {
+      success: false,
+      message: "Failed to update URL",
+    };
+  }
+
+  return { success: true, message: "URL updated", url: updatedUrl };
+};

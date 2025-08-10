@@ -16,3 +16,27 @@ export const shorten = async (url) => {
 
   return { success: true, message: "URL created", url: shortUrl };
 };
+
+async function incrementAccessCount(shortCode) {
+  await prisma.url.update({
+    where: { shortCode },
+    data: { accessCount: { increment: 1 } },
+  });
+}
+
+export const getUrlByShortCode = async (shortCode) => {
+  incrementAccessCount(shortCode);
+  
+  const url = await prisma.url.findUnique({
+    where: { shortCode },
+  });
+
+  if (!url) {
+    return {
+      success: false,
+      message: "URL not found",
+    };
+  }
+
+  return { success: true, message: "URL found", url };
+};
